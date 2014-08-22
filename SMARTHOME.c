@@ -17,3 +17,6 @@ char wifi_rx(void);
 void rtc_init(void);
 void adc_senser(char no);
 void lamp_bright(char lux);
+void power_disable(void);
+void play_music(void);
+void play_note(char note);
