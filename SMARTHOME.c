@@ -8,8 +8,10 @@
 #define LED1_OFF 'a'
 #define LED2_ON 'B'
 #define LED2_OFF 'b'
-#define STOVE_ON 'C'
 #define STOVE_OFF 'c'
+#define STOVE_ON 'C'
+#define STOVE2_ON 'D'
+
 int i,j,k;
 void servo_motter(short angle);
 void lcd_display(void);
