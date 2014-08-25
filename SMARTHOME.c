@@ -2,23 +2,55 @@
 #include <ds1302.h>
 #include <lcd.h>
 #include <stdio.h>
-#define LD 630
-#define LE 683
+
+#asm
+.equ __lcd_port=0x12
+.equ __ds1302_port=0x1b
+.equ __eclk_port=0;
+.equ __sklc_port=2;
+.equ __dtl_port=1;
+#endasm
+
+#define LD 6348
+#define LE 6033
 #define LED1_ON 'A'
 #define LED1_OFF 'a'
 #define LED2_ON 'B'
 #define LED2_OFF 'b'
 #define STOVE_OFF 'c'
-#define STOVE_ON 'C'
+#define STOVE1_ON 'C'
 #define STOVE2_ON 'D'
+#define POWER_SAVE_ON 'S'
+#define WINDOW_OPEN 'D'
+#define WINDOW_CLOSE 'd'
+#define GAS_BELV_OPEN 'F'
+#define GAS_BELV_CLOSE 'f'
 
-int i,j,k;
-void servo_motter(short angle);
+int i,j,k,power_save_time=0;
+void servo_motter(short);
 void lcd_display(void);
 char wifi_rx(void);
 void rtc_init(void);
-void adc_senser(char no);
-void lamp_bright(char lux);
+void adc_senser(char);
+void lamp_bright(char);
 void power_disable(void);
 void play_music(void);
-void play_note(char note);
+void play_note(char);
+void power_save_time_set(char);
+
+void power_save_time_set(char time)
+{
+
+}
+
+void main(void)
+{
+  DDRC=0xff;
+  DDRB=0xff;
+  DDRE=0x02;
+  EIMSK=0xF0;
+  EICRRB=0xA0;
+  #asm("sei")
+  
+  
+}
