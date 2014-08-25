@@ -33,6 +33,7 @@
 
 int power_save_time=0;
 
+void init(void);
 void servo_motter(short);
 void lcd_display(void);
 char char_rx(void);
@@ -44,6 +45,17 @@ void play_music(void);
 void play_note(char);
 void power_save_time_set(char);
 
+void init(void)
+{
+  DDRC=0xFF;
+  DDRB=0xFF;
+  DDRE=0x02;
+  PORTA.4=1;
+  EIMSK=0xF0;
+  EICRRB=0xA0;
+  lcd_init(16);
+  #asm("sei")
+}
 int char_rx(void)
 {
   char data;
@@ -67,13 +79,7 @@ void power_save_set(int time)
 
 void main(void)
 {
-  DDRC=0xff;
-  DDRB=0xff;
-  DDRE=0x02;
-  PORTA.4=1;
-  EIMSK=0xF0;
-  EICRRB=0xA0;
-  #asm("sei")
+  init()
   
   
 }
