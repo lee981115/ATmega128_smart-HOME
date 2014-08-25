@@ -1,3 +1,8 @@
+//
+//power_save_time --> 시간기준
+//servo motter 90도 열림기준
+//
+
 #include <mega128.h>
 #include <ds1302.h>
 #include <lcd.h>
@@ -26,10 +31,11 @@
 #define GAS_BELV_OPEN 'F'
 #define GAS_BELV_CLOSE 'f'
 
-int i,j,k,power_save_time=0;
+int power_save_time=0;
+
 void servo_motter(short);
 void lcd_display(void);
-char wifi_rx(void);
+char char_rx(void);
 void rtc_init(void);
 void adc_senser(char);
 void lamp_bright(char);
@@ -38,9 +44,25 @@ void play_music(void);
 void play_note(char);
 void power_save_time_set(char);
 
-void power_save_time_set(char time)
+int char_rx(void)
 {
+  char data;
+  while((UACR0&0x08)!=1);
+  dara=UDR0;
+  if((data>='0')&&(data<='9'))
+    return(data-'0');
+  else return data;
+}
 
+void power_save_set(int time)
+{
+  int i;time_msec,;
+  time_sec=time*3600;
+  PORTA.4=0;
+  for(i=0;i<=time_sec;i++)
+    delay_ms(1000);
+  PORTA.4=1;
+  lcd_init(16);
 }
 
 void main(void)
@@ -48,6 +70,7 @@ void main(void)
   DDRC=0xff;
   DDRB=0xff;
   DDRE=0x02;
+  PORTA.4=1;
   EIMSK=0xF0;
   EICRRB=0xA0;
   #asm("sei")
